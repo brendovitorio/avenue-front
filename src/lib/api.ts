@@ -1,5 +1,5 @@
 /**
- * Base URL for the ZK Roleplay API. Falls back to the local API dev server when
+ * Base URL for the Avenue Roleplay API. Falls back to the local API dev server when
  * `VITE_API_BASE` is not set (e.g. in tests or a bare `vite dev` run without
  * an `.env`). Every API call in the app should go through this module so the
  * base URL stays a single source of truth.

@@ -14,7 +14,7 @@ function exportPlayersCsv(players:StaffDirectoryPlayer[]) {
  const quote=(value:unknown)=>`"${String(value??'').replace(/"/g,'""')}"`
  const lines=[columns.map(quote).join(';'),...players.map(p=>[p.id,p.displayName,p.discordUsername,p.discordId,p.fivemLicense,p.linkedToFiveM?'sim':'não',p.matches,p.wins,p.activeEntitlements,p.ordersCount,p.createdAt].map(quote).join(';'))]
  const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'})
- const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='zk-roleplay-cidadaos.csv';link.click();URL.revokeObjectURL(url)
+ const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='avenue-roleplay-cidadaos.csv';link.click();URL.revokeObjectURL(url)
 }
 
 export function StaffOverview() {
@@ -30,7 +30,7 @@ export function StaffOverview() {
     ['Próximos eventos',String(summary.upcomingEvents),'calendar'],['Equipe Staff',String(summary.staffMembers),'staff'],
   ] : []
   return <section className="space-y-5">
-    <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs uppercase tracking-[.2em] text-accent">Visão operacional</p><h2 className="text-2xl text-ink">Resumo do ZK ROLEPLAY</h2><p className="text-sm text-mute">Indicadores consultados diretamente no banco de dados.</p></div><button className={cn(buttonVariants({intent:'outline'}))} onClick={()=>setReload(x=>x+1)}>↻ Atualizar dados</button></div>
+    <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs uppercase tracking-[.2em] text-accent">Visão operacional</p><h2 className="text-2xl text-ink">Resumo da Avenue Roleplay</h2><p className="text-sm text-mute">Indicadores consultados diretamente no banco de dados.</p></div><button className={cn(buttonVariants({intent:'outline'}))} onClick={()=>setReload(x=>x+1)}>↻ Atualizar dados</button></div>
     {error&&<p role="alert" className="text-danger">{error}</p>}
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{loading?Array.from({length:8},(_,i)=><div key={i} className={`${panel} animate-pulse`}><div className="h-3 w-28 rounded bg-line"/><div className="mt-4 h-8 w-20 rounded bg-line"/></div>):metrics.map(([label,value])=><article key={label} className={panel}><p className="text-sm text-mute">{label}</p><strong className="mt-2 block text-3xl text-ink">{value}</strong></article>)}</div>
     <div className={panel}><h3 className="text-lg text-ink">Indicadores de acesso</h3><div className="mt-4 flex items-center justify-between text-sm"><span className="text-mute">Jogadores vinculados ao FiveM</span><strong className="text-ink">{loading||!summary?'—':`${summary.linkedPlayers} / ${summary.players}`}</strong></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-line"><div className="h-full rounded-full bg-accent" style={{width:`${summary&&summary.players?Math.min(100,summary.linkedPlayers/summary.players*100):0}%`}}/></div><p className="mt-3 text-xs text-mute">A receita considera apenas pedidos pagos, em processamento ou entregues. Não inclui pedidos pendentes, cancelados ou reembolsados.</p></div>

@@ -114,7 +114,7 @@ export function StaffDashboard() {
       <PageHeader title="Central da" titleAccent="equipe" lede="Gerencie jogadores, permissões, loja e conteúdo em áreas separadas." />
       <div className="staff-console mb-8">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-          <div><p className="text-xs font-bold uppercase tracking-[.22em] text-accent">ZK ROLEPLAY · STAFF CONTROL</p><h2 className="mt-1 text-2xl text-ink">Central de operações</h2></div>
+          <div><p className="text-xs font-bold uppercase tracking-[.22em] text-accent">AVENUE ROLEPLAY · STAFF CONTROL</p><h2 className="mt-1 text-2xl text-ink">Central de operações</h2></div>
           <span className="rounded-full border border-accent/30 px-3 py-1 text-xs text-accent">Sessão autenticada</span>
         </div>
         <nav className="staff-tabs" aria-label="Seções do painel Staff">

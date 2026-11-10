@@ -7,6 +7,7 @@ import { Atualizacoes } from './pages/Atualizacoes'
 import { Cadastro } from './pages/Cadastro'
 import { Regras } from './pages/Regras'
 import { Cidade } from './pages/Cidade'
+import { Equipe } from './pages/Equipe'
 import { Home } from './pages/Home'
 import { Loja } from './pages/Loja'
 import { Painel } from './pages/Painel'
@@ -26,7 +27,7 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <Nav />
-        <main className="flex flex-1 flex-col">
+        <main className={cn('flex flex-1 flex-col', location.pathname === '/' ? '' : 'pt-[4.7rem]')}>
           <div key={location.pathname} className="page-enter flex flex-1 flex-col">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -39,6 +40,7 @@ function App() {
             <Route path="/whitelist" element={<Cadastro />} />
             <Route path="/regras" element={<Regras />} />
             <Route path="/cidade" element={<Cidade />} />
+            <Route path="/equipe" element={<Equipe />} />
             <Route path="/painel" element={<Painel />} />
             <Route path="/staff" element={<StaffGuard />} />
             <Route path="/staff/login" element={<StaffLogin />} />

@@ -34,7 +34,7 @@ function categoryTone(category: string): 'solid' | 'neutral' {
 
 /**
  * Single changelog entry for the Atualizações timeline: version + date in a
- * left rail (desktop) with a violet node on the timeline spine, content on
+ * left rail (desktop) with a gold node on the timeline spine, content on
  * the right.
  */
 export function ChangelogEntry({ entry }: ChangelogEntryProps) {

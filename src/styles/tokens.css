@@ -1,5 +1,5 @@
 /*
- * ZKPVP design tokens — single source of truth (docs/design.md, "Identidade visual").
+ * Avenue Roleplay design tokens — single source of truth (docs/design.md, "Identidade visual").
  *
  * Expressed as a Tailwind v4 `@theme` block so every value below generates
  * utilities (`bg-void`, `text-accent`, `border-line`, `font-display`, ...) AND
@@ -15,19 +15,19 @@
 @theme {
   --color-*: initial;
 
-  /* Refreshed ZKPVP values: graphite base with a controlled violet signal. */
-  --color-void: #090A10;        /* arena background */
-  --color-panel: #12141D;       /* cards, panels, table body */
-  --color-accent: #A879FF;      /* brand / CTA / active state */
-  --color-flare: #F078E8;       /* key numbers and rare highlights */
+  /* Refreshed Avenue Roleplay values: graphite base with a restrained champagne-gold signal. */
+  --color-void: #090A0C;        /* city-night background */
+  --color-panel: #141416;       /* cards, panels, table body */
+  --color-accent: #C6A66B;      /* brand / CTA / active state */
+  --color-flare: #E8D2A6;       /* key numbers and rare highlights */
   --color-ink: #F5F3FA;         /* primary text */
   --color-mute: #A6A2B3;        /* secondary text */
   --color-online: #22C55E;      /* --status-online (universal convention, not brand) */
 
   /* Derived values — computed from the binding ones, never new hues. */
-  --color-panel-raised: color-mix(in oklab, #12141D 82%, #A879FF);
-  --color-line: color-mix(in oklab, #A879FF 24%, transparent);
-  --color-line-strong: color-mix(in oklab, #A879FF 52%, transparent);
+  --color-panel-raised: color-mix(in oklab, #141416 82%, #C6A66B);
+  --color-line: color-mix(in oklab, #C6A66B 24%, transparent);
+  --color-line-strong: color-mix(in oklab, #C6A66B 52%, transparent);
   --color-danger: #F4718F;      /* validation / error text only */
 
   --font-display: "Rajdhani", ui-sans-serif, system-ui, sans-serif;

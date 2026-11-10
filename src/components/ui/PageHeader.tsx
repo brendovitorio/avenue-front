@@ -16,7 +16,7 @@ export function PageHeader({ title, titleAccent, lede, aside, className }: PageH
       <div aria-hidden="true" className="absolute -right-10 -top-20 -z-10 size-64 rotate-12 border border-accent/10 bg-[linear-gradient(135deg,rgba(168,121,255,.08),transparent_65%)] sm:right-8 sm:size-80" />
       <div className="min-w-0">
         <p className="mb-3 flex items-center gap-2 text-[.68rem] font-bold uppercase tracking-[.2em] text-mute">
-          <span className="size-1.5 bg-accent" /> ZK ROLEPLAY <span className="text-line-strong">/</span> Sua cidade
+          <span className="size-1.5 bg-accent" /> AVENUE ROLEPLAY <span className="text-line-strong">/</span> Sua cidade
         </p>
         <h1 className="headline-poster text-[clamp(2.7rem,6vw,5.5rem)] leading-[.94] tracking-[-.025em] text-ink">
           {title}{titleAccent && <><span className="sr-only"> </span>{' '}<span className="headline-accent">{titleAccent}</span></>}

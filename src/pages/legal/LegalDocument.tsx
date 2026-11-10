@@ -25,7 +25,7 @@ export function LegalDocument({
     <div className={cn(pageShellClass, 'legal-document flex-1 pb-20')}>
       <PageHeader title={title} titleAccent={titleAccent} lede={lede} />
       <div className="my-6 border border-accent/25 bg-accent/[.06] px-5 py-4 text-sm leading-relaxed text-mute sm:px-6">
-        <strong className="text-ink">Documento inicial da ZK Roleplay.</strong>{' '}
+        <strong className="text-ink">Documento institucional da Avenue Roleplay.</strong>{' '}
         Antes da versão final, a equipe deve informar a identificação jurídica do operador e publicar o link do canal oficial de suporte no Discord.
       </div>
       <p className="mb-8 text-xs font-semibold uppercase tracking-[.14em] text-mute/75">Versão 1.0 · Atualizado em 7 de novembro de 2026</p>

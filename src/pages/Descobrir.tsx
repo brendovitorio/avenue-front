@@ -14,8 +14,7 @@ import { getPlayers } from '../lib/api'
 const SEARCH_DEBOUNCE_MS = 300
 
 /**
- * Descobrir page: `/descobrir`. Search the community without BR-style
- * playlists; player stats focus on PvP performance.
+ * Descobrir page: `/descobrir`. Explore the Avenue Roleplay community.
  */
 export function Descobrir() {
   const [searchInput, setSearchInput] = useState('')
@@ -56,7 +55,7 @@ export function Descobrir() {
     <section className={cn('descobrir-page pb-20', pageShellClass)}>
       <PageHeader
         title="Jogadores"
-        lede="Encontre jogadores da comunidade e compare desempenho nas partidas PvP."
+        lede="Conheça os membros da comunidade Avenue Roleplay."
         aside={
           <SearchField
             placeholder="Nome ou ID do jogador..."

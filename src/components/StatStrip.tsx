@@ -40,13 +40,13 @@ const STAT_DEFS: StatDef[] = [
 
 /**
  * The home page's "faixa de placar" (scoreboard strip) from design.md: a
- * horizontal strip with thin violet-glow borders and clipped corners —
+ * horizontal strip with thin gold-glow borders and clipped corners —
  * deliberately not a generic rounded-corner SaaS card grid with a grey
  * box-shadow.
  *
- * Construction: the outer wrapper carries the violet `glow` (a drop-shadow
+ * Construction: the outer wrapper carries the gold `glow` (a drop-shadow
  * filter must live on a parent of the clipped element). The chamfered grid
- * paints violet hairlines as its background and lets them show through 1px
+ * paints gold hairlines as its background and lets them show through 1px
  * gaps between the cells.
  */
 export function StatStrip({ stats, className }: StatStripProps) {

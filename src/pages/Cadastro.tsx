@@ -1,61 +1,51 @@
-import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { PageHeader } from '../components/ui/PageHeader'
-import { buttonVariants, pageShellClass } from '../components/ui/variants'
-import { cn } from '../lib/cn'
-import { apiFetch, ApiError } from '../lib/api'
+import { API_BASE } from '../lib/api'
 import { useAuth } from '../state/AuthContext'
 
 const DISCORD_INVITE = import.meta.env.VITE_DISCORD_INVITE ?? 'https://discord.com/'
 
-const shellClass = cn('max-w-4xl pb-24', pageShellClass)
-
 export function Cadastro() {
   const { player, loading } = useAuth()
-  const [characterName, setCharacterName] = useState('')
-  const [age, setAge] = useState('')
-  const [experience, setExperience] = useState('')
-  const [story, setStory] = useState('')
-  const [accepted, setAccepted] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if (submitting) return
-    setSubmitting(true); setError('')
-    try {
-      await apiFetch('/api/whitelist/apply', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ characterName, age: Number(age), experience, story }) })
-      setSubmitted(true)
-    } catch (err) {
-      const body = err instanceof ApiError && err.body && typeof err.body === 'object' ? err.body as { error?: string } : {}
-      setError(body.error === 'application_exists' ? 'Você já possui uma solicitação em análise. Entre no Discord para acompanhar.' : body.error === 'already_approved' ? 'Sua whitelist já consta como aprovada. Confira o Discord para as instruções.' : 'Não foi possível enviar sua solicitação. Tente novamente em instantes.')
-    } finally { setSubmitting(false) }
-  }
+  return (
+    <main className="cinema-whitelist">
+      <section className="cinema-subhero cinema-subhero--whitelist">
+        <div className="cinema-container relative z-10 py-28 sm:py-36">
+          <p className="cinema-eyebrow">AVENUE ROLEPLAY / ACESSO À CIDADE</p>
+          <h1 className="cinema-heading max-w-5xl">Toda história<br />começa com <em>um convite.</em></h1>
+          <p className="mt-7 max-w-2xl text-base leading-8 text-white/65">A entrada na Avenue acontece por entrevista no Discord. Conheça as regras, conecte sua conta e converse com nossa equipe para dar o primeiro passo.</p>
+        </div>
+      </section>
+      <section className="section-luxury py-20 sm:py-28">
+        <div className="cinema-container">
+          <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
+            <div><p className="cinema-eyebrow">01 / Processo de entrada</p><h2 className="cinema-heading">Seu acesso.<br /><em>Em três etapas.</em></h2><p className="mt-6 max-w-lg text-sm leading-8 text-white/55">Não existe formulário automático de aprovação. Nossa equipe realiza a entrevista por voz no Discord para conhecer você e explicar como funciona a cidade.</p></div>
+            <div className="cinema-steps">
+              <div><span>01</span><div><strong>Conecte sua conta</strong><small>Entre com seu Discord para identificar seu perfil na comunidade.</small></div><b>↗</b></div>
+              <div><span>02</span><div><strong>Leia as regras</strong><small>Conheça as diretrizes e tire suas dúvidas antes da entrevista.</small></div><b>↗</b></div>
+              <div><span>03</span><div><strong>Faça a entrevista</strong><small>Acesse o Discord e procure o canal de whitelist para falar com a equipe.</small></div><b>↗</b></div>
+            </div>
+          </div>
 
-  if (loading) return <section className={shellClass}><p className="pt-16 text-mute">Carregando...</p></section>
-  if (!player) return <section className={shellClass}><PageHeader title="Whitelist" lede="Entre com sua conta Discord para iniciar seu processo de acesso."/><div className="border border-line bg-panel p-7"><a href={`${import.meta.env.VITE_API_BASE ?? 'http://localhost:3000'}/auth/discord/login`} className={cn(buttonVariants(), 'inline-flex')}>Entrar com Discord ↗</a></div></section>
-
-  if (submitted) return <section className={shellClass}><PageHeader title="Solicitação enviada" lede="Seu primeiro passo para fazer parte da cidade foi concluído."/><div className="border border-online/30 bg-panel p-8"><span className="text-xs font-bold uppercase tracking-[.2em] text-online">Cadastro recebido</span><h2 className="mt-3 font-display text-4xl font-bold uppercase text-ink">Agora é hora da entrevista.</h2><p className="mt-4 max-w-2xl leading-7 text-mute">Sua solicitação foi registrada. Entre no nosso Discord oficial, procure o canal de whitelist e aguarde a equipe orientar você sobre a entrevista por call. A aprovação acontece após a conversa com a equipe.</p><a href={DISCORD_INVITE} target="_blank" rel="noreferrer" className={cn(buttonVariants(), 'mt-6 inline-flex')}>Abrir Discord ↗</a></div></section>
-
-  return <section className={shellClass}>
-    <PageHeader title="Whitelist" lede="Conecte sua identidade, apresente seu personagem e prepare-se para conversar com nossa equipe por voz."/>
-    <div className="mb-8 grid gap-px border border-line bg-line sm:grid-cols-3">
-      {[['01','Conecte','Sua conta Discord já está autenticada.'],['02','Apresente','Preencha os dados do personagem.'],['03','Converse','Faça a entrevista de whitelist por call.']].map(([n,t,d]) => <div key={n} className="bg-panel p-5"><span className="font-display text-3xl font-bold text-accent">{n}</span><h3 className="mt-3 font-display text-xl font-bold uppercase text-ink">{t}</h3><p className="mt-1 text-sm leading-6 text-mute">{d}</p></div>)}
-    </div>
-    <form onSubmit={submit} className="space-y-6 border border-line bg-panel p-6 sm:p-8">
-      <div className="flex items-center gap-3 border-b border-line pb-5"><img src={player.discordAvatarUrl ?? ''} alt="" className="size-11 rounded-full bg-void object-cover"/><div><p className="text-xs uppercase tracking-wider text-mute">Conta conectada</p><p className="font-semibold text-ink">{player.discordUsername ?? player.displayName}</p></div><span className="ml-auto text-xs font-bold text-online">DISCORD OK</span></div>
-      <div className="grid gap-5 sm:grid-cols-2">
-        <label className="block text-sm font-semibold text-ink">Nome do personagem<input required minLength={3} maxLength={48} value={characterName} onChange={e => setCharacterName(e.target.value)} placeholder="Ex.: Gabriel Oliveira" className="mt-2"/></label>
-        <label className="block text-sm font-semibold text-ink">Sua idade<input required type="number" min={1} max={99} value={age} onChange={e => setAge(e.target.value)} placeholder="18" className="mt-2"/></label>
-      </div>
-      <label className="block text-sm font-semibold text-ink">Experiência com Roleplay<textarea required minLength={20} maxLength={1200} value={experience} onChange={e => setExperience(e.target.value)} placeholder="Conte brevemente se já jogou RP e o que aprendeu com essas experiências." className="mt-2 min-h-28"/></label>
-      <label className="block text-sm font-semibold text-ink">História e conceito do personagem<textarea required minLength={80} maxLength={3000} value={story} onChange={e => setStory(e.target.value)} placeholder="Quem é seu personagem? De onde veio, quais são seus objetivos e como pretende construir sua história na cidade?" className="mt-2 min-h-40"/></label>
-      <label className="flex items-start gap-3 text-sm leading-6 text-mute"><input type="checkbox" checked={accepted} onChange={e => setAccepted(e.target.checked)} className="mt-1"/><span>Declaro que li as <Link className="font-bold text-accent underline" to="/regras">regras da cidade</Link>, que as informações são verdadeiras e que estou ciente de que a whitelist depende de entrevista por voz e aprovação da equipe.</span></label>
-      {error && <p role="alert" className="border border-danger/30 bg-danger/10 p-3 text-sm text-danger">{error}</p>}
-      <button disabled={!accepted || submitting} className={cn(buttonVariants({ size: 'lg' }), 'w-full sm:w-auto disabled:cursor-not-allowed disabled:opacity-50')}>{submitting ? 'Enviando solicitação...' : 'Enviar solicitação de whitelist ↗'}</button>
-      <p className="text-xs leading-6 text-mute/70">O envio não aprova automaticamente o acesso. A equipe fará a avaliação e conduzirá a entrevista pelos canais oficiais do Discord.</p>
-    </form>
-  </section>
+          <div className="cinema-whitelist__panel mt-16">
+            {loading ? <p className="text-sm text-white/55">Verificando sua conexão...</p> : player ? (
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                  {player.discordAvatarUrl ? <img src={player.discordAvatarUrl} alt="" className="size-14 rounded-full border border-[#c6a66b]/50 object-cover"/> : <span className="grid size-14 place-items-center rounded-full border border-[#c6a66b]/50 bg-[#c6a66b]/10 font-display text-2xl text-[#e8d2a6]">{player.displayName.slice(0,1).toUpperCase()}</span>}
+                  <div className="min-w-0"><p className="text-[.6rem] font-bold uppercase tracking-[.2em] text-[#c6a66b]">Discord conectado</p><h3 className="mt-1 truncate font-display text-2xl font-bold uppercase text-white">{player.displayName}</h3><p className="mt-1 text-xs text-white/45">Sua conta está pronta para continuar.</p></div>
+                </div>
+                <a href={DISCORD_INVITE} target="_blank" rel="noreferrer" className="cinema-button cinema-button--gold">Ir para entrevista ↗</a>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+                <div className="flex-1"><p className="text-[.6rem] font-bold uppercase tracking-[.2em] text-[#c6a66b]">Primeiro passo</p><h3 className="mt-2 font-display text-2xl font-bold uppercase text-white">Conecte seu Discord.</h3><p className="mt-2 text-sm leading-7 text-white/55">Entre com sua conta Discord para identificar seu perfil e continuar o processo de whitelist.</p></div>
+                <a href={`${API_BASE}/auth/discord/login`} className="cinema-button cinema-button--gold">Entrar com Discord ↗</a>
+              </div>
+            )}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-5 text-xs text-white/40"><Link to="/regras" className="text-[#c6a66b] underline underline-offset-4">Ler o manual de regras</Link><span>•</span><a href={DISCORD_INVITE} target="_blank" rel="noreferrer" className="text-[#c6a66b] underline underline-offset-4">Comunidade oficial no Discord</a></div>
+        </div>
+      </section>
+    </main>
+  )
 }

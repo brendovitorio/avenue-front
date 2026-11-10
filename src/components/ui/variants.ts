@@ -19,9 +19,9 @@ export const buttonVariants = cva(
   {
     variants: {
       intent: {
-        /** Brand CTA: solid violet, chamfered. One per view, ideally. */
+        /** Brand CTA: solid gold, chamfered. One per view, ideally. */
         primary: 'chamfer bg-accent text-ink hover:brightness-115 disabled:brightness-100',
-        /** Secondary: hairline violet outline on the panel fill. */
+        /** Secondary: hairline gold outline on the panel fill. */
         outline: 'frame text-ink hover:frame-lit focus-visible:[--frame-edge:var(--color-ink)]',
         /** Tertiary text action (remove, back). */
         ghost: 'text-mute hover:text-ink',
